@@ -85,4 +85,37 @@ public class TicTacToe {
         currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
     }
     
+     // Start the game loop
+     public void startGame() {
+        Scanner scanner = new Scanner(System.in);
+        boolean gameWon = false;
+        boolean gameDraw = false;
+
+        while (!gameWon && !gameDraw) {
+            displayBoard();
+            System.out.println("Player " + currentPlayer + ", enter your move (row and column): ");
+            int row = scanner.nextInt();
+            int col = scanner.nextInt();
+
+            if (makeMove(row, col)) {
+                gameWon = isWin();
+                gameDraw = isDraw();
+
+                if (!gameWon && !gameDraw) {
+                    switchPlayer();
+                }
+            } else {
+                System.out.println("This move is not valid");
+            }
+        }
+
+        displayBoard();
+        if (gameWon) {
+            System.out.println("Player " + currentPlayer + " wins!");
+        } else if (gameDraw) {
+            System.out.println("It's a draw!");
+        }
+
+        scanner.close();
+    }
 }
